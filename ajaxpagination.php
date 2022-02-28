@@ -38,4 +38,3 @@ $resultset = mysqli_query($conn, $sql_query);
         </tr>
     <?php } ?>
 </table>
-<div id="loading"><img src="images/loading.gif" /></div>
