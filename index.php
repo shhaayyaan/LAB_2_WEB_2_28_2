@@ -9,8 +9,44 @@
     <script>
         $(document).ready(function() {
             $("#content_container").load("ajaxpagination.php?page=1");
+
+            function hideLoading() {
+                console.log("Executing");
+                $("#loading").fadeOut("slow");
+            }
+
+            $("#paginate li:first")
+                .css({
+                    color: "#FF0084",
+                })
+                .css({
+                    border: "none",
+                });
+            $("#content_container").load("ajaxpagination.php?page=1", hideLoading());
+            $("#paginate li").click(function() {
+                $("#paginate li")
+                    .css({
+                        border: "solid #dddddd 1px",
+                    })
+                    .css({
+                        color: "#0063DC",
+                    });
+                $(this)
+                    .css({
+                        color: "#FF0084",
+                    })
+                    .css({
+                        border: "none",
+                    });
+                var page_num = this.id;
+                $("#content_container").load(
+                    "ajaxpagination.php?page=" + page_num,
+                    hideLoading()
+                );
+            });
         });
     </script>
+
     <style>
         .pagination {
             float: left;
@@ -55,33 +91,7 @@
     <div style="width:85%;">
         <h2>Pagination with Jquery AJAX, MySQL and PHP </h2>
     </div>
-    <script>
-        function hideLoading() {
-            $("#loading").fadeOut('slow');
-        };
-        $("#content_container").load("ajaxpagination.php?page=1", hideLoading());
 
-        $("#paginate li:first").css({
-            'color': '#FF0084'
-        }).css({
-            'border': 'none'
-        });
-        $("#content_container").load("ajaxpagination.php?page=1", hideLoading());
-        $("#paginate li").click(function() {
-            $("#paginate li").css({
-                'border': 'solid #dddddd 1px'
-            }).css({
-                'color': '#0063DC'
-            });
-            $(this).css({
-                'color': '#FF0084'
-            }).css({
-                'border': 'none'
-            });
-            var page_num = this.id;
-            $("#content_container").load("ajaxpagination.php?page=" + page_num, hideLoading());
-        })
-    </script>
 
     <?php
 
@@ -97,17 +107,20 @@
     ?>
 
     <div id="content_container">
-        <div class="pagination" style="padding:10px;">
-            <ul id="paginate">
-                <?php
-                for ($i = 1; $i <= $pages; $i++) {
-                    echo '<li id="' . $i . '">' . $i . '</li>';
-                }
-                ?>
-            </ul>
-        </div>
 
     </div>
+
+    <div class="pagination" style="padding:10px;">
+        <ul id="paginate">
+            <?php
+            for ($i = 1; $i <= $pages; $i++) {
+                echo '<li id="' . $i . '">' . $i . '</li>';
+            }
+            ?>
+        </ul>
+    </div>
+    <div id="loading"><img src="images/loading.webp" /></div>
 </body>
+
 
 </html>
