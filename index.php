@@ -105,11 +105,9 @@
     $count = mysqli_num_rows($result);
     $pages = ceil($count / $per_page)
     ?>
-
     <div id="content_container">
 
     </div>
-
     <div class="pagination" style="padding:10px;">
         <ul id="paginate">
             <?php
