@@ -31,7 +31,7 @@
                     console.log('Scrolled to Bottom ' + page_number.toString());
                 }
             })
-            $("#content_container").load("ajaxpagination.php?page=" + page_number.toString());
+            $("#content_container").load("ajaxpagination.php?page=" + page_number.toString(), hideLoading());
 
             function hideLoading() {
                 $("#loading").fadeOut("slow");
@@ -44,7 +44,6 @@
                 .css({
                     border: "none",
                 });
-            $("#content_container").append("ajaxpagination.php?page=1", hideLoading());
             $("#paginate li").click(function() {
                 $("#paginate li")
                     .css({
@@ -127,18 +126,16 @@
     $count = mysqli_num_rows($result);
     $pages = ceil($count / $per_page)
     ?>
-    <div id="content_container">
+    <table width="100%" id="content_container">
+        <thead>
+            <tr>
+                <th> Id</th>
+                <th>Task Name</th>
+            </tr>
+        </thead>
 
-    </div>
-    <div class="pagination" style="padding:10px;">
-        <ul id="paginate">
-            <?php
-            for ($i = 1; $i <= $pages; $i++) {
-                echo '<li id="' . $i . '">' . $i . '</li>';
-            }
-            ?>
-        </ul>
-    </div>
+    </table>
+
     <div id="loading"><img src="images/loading.webp" /></div>
 </body>
 

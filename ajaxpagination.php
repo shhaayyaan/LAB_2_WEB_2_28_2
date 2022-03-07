@@ -2,7 +2,7 @@
 
 include("databaseConnect.php");
 
-$per_page = 20;
+$per_page = 50;
 
 if (isset($_GET['page'])) {
     $page = $_GET['page'];
@@ -17,24 +17,17 @@ $resultset = mysqli_query($conn, $sql_query);
 
 
 ?>
-<table width="100%">
-    <thead>
-        <tr>
-            <th> Id</th>
-            <th>Task Name</th>
-        </tr>
-    </thead>
-    <?php
-    while ($rows = mysqli_fetch_array($resultset)) {  ?>
-        <tr bgcolor="#DDEBF5">
-            <!-- <td> <?php //echo $rows['task_id']; 
-                        ?></td>
+
+<?php
+while ($rows = mysqli_fetch_array($resultset)) {  ?>
+    <tr bgcolor="#DDEBF5">
+        <!-- <td> <?php //echo $rows['task_id']; 
+                    ?></td>
             <td><?php //echo $rows['taskName']; 
                 ?></td> -->
 
-            <!-- My Own database specific code, please chnage according to your database. -->
-            <td> <?php echo $rows['task_id']; ?></td>
-            <td><?php echo $rows['task_name']; ?></td>
-        </tr>
-    <?php } ?>
-</table>
+        <!-- My Own database specific code, please chnage according to your database. -->
+        <td> <?php echo $rows['task_id']; ?></td>
+        <td><?php echo $rows['task_name']; ?></td>
+    </tr>
+<?php } ?>
