@@ -10,9 +10,6 @@
         $(document).ready(function() {
             var page_number = 1;
             $(window).scroll(function() {
-                // console.log($(document).height(), $(this).height(), Math.floor($(this).scrollTop()));
-                // console.log($(document).height() - $(this).height());
-                // console.log(page_number)
                 if ($(document).height() - $(this).height() == Math.floor($(this).scrollTop())) {
                     page_number += 1;
                     $.ajax({
