@@ -8,10 +8,32 @@
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script>
         $(document).ready(function() {
-            $("#content_container").load("ajaxpagination.php?page=1");
+            var page_number = 1;
+            $(window).scroll(function() {
+                // console.log($(document).height(), $(this).height(), Math.floor($(this).scrollTop()));
+                // console.log($(document).height() - $(this).height());
+                // console.log(page_number)
+                if ($(document).height() - $(this).height() == Math.floor($(this).scrollTop())) {
+                    page_number += 1;
+                    $.ajax({
+                        type: "GET",
+                        url: "ajaxpagination.php?page=" + page_number,
+                        success: function(msg) {
+                            if (msg) {
+                                $("#content_container").append(msg);
+                            }
+                        },
+                        error: function(req, status, error) {
+                            alert("Error try again");
+                        }
+                    });
+
+                    console.log('Scrolled to Bottom ' + page_number.toString());
+                }
+            })
+            $("#content_container").load("ajaxpagination.php?page=" + page_number.toString());
 
             function hideLoading() {
-                console.log("Executing");
                 $("#loading").fadeOut("slow");
             }
 
@@ -22,7 +44,7 @@
                 .css({
                     border: "none",
                 });
-            $("#content_container").load("ajaxpagination.php?page=1", hideLoading());
+            $("#content_container").append("ajaxpagination.php?page=1", hideLoading());
             $("#paginate li").click(function() {
                 $("#paginate li")
                     .css({
